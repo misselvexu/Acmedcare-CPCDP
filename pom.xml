@@ -81,7 +81,7 @@
     </developers>
 
     <modules>
-
+        <module>api</module>
     </modules>
 
     <dependencyManagement>
@@ -140,7 +140,11 @@
             </dependency>
 
             <!-- Inner Libs Defined -->
-
+            <dependency>
+                <groupId>com.acmedcare.framework</groupId>
+                <artifactId>cpcdp-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- libs defined -->
             <dependency>
