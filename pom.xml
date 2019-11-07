@@ -32,7 +32,7 @@
 
         <!-- lib version defined -->
         <spring-boot.version>2.0.8.RELEASE</spring-boot.version>
-        <netty.version>4.1.31.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
 
         <!-- maven plugin version defined -->
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
