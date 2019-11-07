@@ -34,7 +34,7 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 /**
- * {@link PatientRegister}
+ * {@link PatientRegisterBean}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
@@ -45,7 +45,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuppressWarnings("ALL")
-public class PatientRegister implements Serializable {
+public class PatientRegisterBean implements Serializable {
 
   private String id;
 
@@ -92,6 +92,8 @@ public class PatientRegister implements Serializable {
   @Conditions({
     @Condition(
         field = "credentialsType",
+        type = CredentialsType.class,
+        isCpcEnum = true,
         expectValue = {"1", "2"})
   })
   private String idCard;

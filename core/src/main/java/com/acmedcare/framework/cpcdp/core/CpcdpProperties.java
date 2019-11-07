@@ -20,51 +20,27 @@
  * SOFTWARE.
  */
 
-package com.acmedcare.framework.cpcdp.annotation;
+package com.acmedcare.framework.cpcdp.core;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.io.Serializable;
 
 /**
- * {@link Condition}
+ * {@link CpcdpProperties}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/7.
  */
-@Documented
-@Target({FIELD})
-@Retention(RUNTIME)
-public @interface Condition {
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+public class CpcdpProperties implements Serializable {
 
-  /**
-   * field
-   *
-   * @return field
-   */
-  String field();
 
-  /**
-   * Field Class Type
-   *
-   * @return class type
-   */
-  Class type();
 
-  /**
-   * is Cpc Defined Enum
-   *
-   * @return false / true
-   */
-  boolean isCpcEnum() default false;
-
-  /**
-   * Expect Value(s)
-   *
-   * @return value(s) defined
-   */
-  String[] expectValue();
 }

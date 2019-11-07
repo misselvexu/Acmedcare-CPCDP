@@ -30,7 +30,7 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * {@link Condition}
+ * {@link AllowValues}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/7.
@@ -38,33 +38,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target({FIELD})
 @Retention(RUNTIME)
-public @interface Condition {
+public @interface AllowValues {
 
   /**
-   * field
+   * Allow Value(s)
    *
-   * @return field
+   * @return allow value(s) defined
    */
-  String field();
-
-  /**
-   * Field Class Type
-   *
-   * @return class type
-   */
-  Class type();
-
-  /**
-   * is Cpc Defined Enum
-   *
-   * @return false / true
-   */
-  boolean isCpcEnum() default false;
-
-  /**
-   * Expect Value(s)
-   *
-   * @return value(s) defined
-   */
-  String[] expectValue();
+  String[] value();
 }

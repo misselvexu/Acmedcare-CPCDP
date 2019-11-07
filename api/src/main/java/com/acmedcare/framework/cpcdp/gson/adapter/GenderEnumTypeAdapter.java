@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.adapter;
 
-import com.acmedcare.framework.cpcdp.bean.PatientRegister;
+import com.acmedcare.framework.cpcdp.bean.PatientRegisterBean;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -37,9 +37,9 @@ import java.io.IOException;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class GenderEnumTypeAdapter extends TypeAdapter<PatientRegister.Gender> {
+public class GenderEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.Gender> {
 
-  private PatientRegister.Gender[] genders = PatientRegister.Gender.values();
+  private PatientRegisterBean.Gender[] genders = PatientRegisterBean.Gender.values();
 
   /**
    * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
@@ -48,7 +48,7 @@ public class GenderEnumTypeAdapter extends TypeAdapter<PatientRegister.Gender> {
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, PatientRegister.Gender value) throws IOException {
+  public void write(JsonWriter out, PatientRegisterBean.Gender value) throws IOException {
     out.value(value == null ? null : value.key());
   }
 
@@ -60,7 +60,7 @@ public class GenderEnumTypeAdapter extends TypeAdapter<PatientRegister.Gender> {
    * @return the converted Java object. May be null.
    */
   @Override
-  public PatientRegister.Gender read(JsonReader in) throws IOException {
+  public PatientRegisterBean.Gender read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
@@ -68,7 +68,7 @@ public class GenderEnumTypeAdapter extends TypeAdapter<PatientRegister.Gender> {
 
     try {
       String key = in.nextString();
-      for (PatientRegister.Gender gender : genders) {
+      for (PatientRegisterBean.Gender gender : genders) {
         if (gender.key().equals(key)) {
           return gender;
         }

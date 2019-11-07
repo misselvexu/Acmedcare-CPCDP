@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.adapter;
 
-import com.acmedcare.framework.cpcdp.bean.PatientRegister;
+import com.acmedcare.framework.cpcdp.bean.PatientRegisterBean;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -37,9 +37,9 @@ import java.io.IOException;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegister.MaritalStatus> {
+public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.MaritalStatus> {
 
-  private PatientRegister.MaritalStatus[] values = PatientRegister.MaritalStatus.values();
+  private PatientRegisterBean.MaritalStatus[] values = PatientRegisterBean.MaritalStatus.values();
 
   /**
    * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
@@ -48,7 +48,7 @@ public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegister.Ma
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, PatientRegister.MaritalStatus value) throws IOException {
+  public void write(JsonWriter out, PatientRegisterBean.MaritalStatus value) throws IOException {
     out.value(value == null ? null : value.key());
   }
 
@@ -60,7 +60,7 @@ public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegister.Ma
    * @return the converted Java object. May be null.
    */
   @Override
-  public PatientRegister.MaritalStatus read(JsonReader in) throws IOException {
+  public PatientRegisterBean.MaritalStatus read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
@@ -68,7 +68,7 @@ public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegister.Ma
 
     try {
       String key = in.nextString();
-      for (PatientRegister.MaritalStatus temp : values) {
+      for (PatientRegisterBean.MaritalStatus temp : values) {
         if (temp.key().equals(key)) {
           return temp;
         }

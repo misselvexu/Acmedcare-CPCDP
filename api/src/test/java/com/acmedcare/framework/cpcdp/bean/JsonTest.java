@@ -25,9 +25,12 @@ package com.acmedcare.framework.cpcdp.bean;
 import com.acmedcare.framework.cpcdp.Status;
 import com.acmedcare.framework.cpcdp.gson.CpcdpFieldNamingStrategy;
 import com.acmedcare.framework.cpcdp.gson.CpcdpTypeAdapterFactory;
+import com.acmedcare.framework.cpcdp.gson.serializer.DistressCaseDetailSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
+
+import java.util.Date;
 
 /**
  * {@link JsonTest}
@@ -41,25 +44,28 @@ public class JsonTest {
       new GsonBuilder()
           .setFieldNamingStrategy(new CpcdpFieldNamingStrategy())
           .registerTypeAdapterFactory(new CpcdpTypeAdapterFactory())
+          .registerTypeAdapter(
+              FirstAidBean.DistressCaseDetail[].class, new DistressCaseDetailSerializer())
+          .setDateFormat("yyyy-MM-dd HH:mm:ss")
           .setPrettyPrinting()
           .create();
 
   @Test
   public void test01() throws Exception {
 
-    PatientRegister register =
-        PatientRegister.builder()
+    PatientRegisterBean register =
+        PatientRegisterBean.builder()
             .age(50)
             .birthday("2019-01-01")
-            .gender(PatientRegister.Gender.MALE)
+            .gender(PatientRegisterBean.Gender.MALE)
             .hospitalId("1231ujs-88811")
             .name("Miss")
-            .maritalStatus(PatientRegister.MaritalStatus.M01)
+            .maritalStatus(PatientRegisterBean.MaritalStatus.M01)
             .contactPhone("1391011111")
-            .culturedegree(PatientRegister.Culturedegree.C01)
-            .job(PatientRegister.Job.J01)
+            .culturedegree(PatientRegisterBean.Culturedegree.C01)
+            .job(PatientRegisterBean.Job.J01)
             .height(175)
-            .credentialsType(PatientRegister.CredentialsType.ID_CARD)
+            .credentialsType(PatientRegisterBean.CredentialsType.ID_CARD)
             .idCard("111123321321321312")
             .nation("汉族")
             .status(Status.S01)
@@ -69,5 +75,49 @@ public class JsonTest {
             .build();
 
     System.out.println(gson.toJson(register));
+  }
+
+  @Test
+  public void test02() throws Exception {
+
+    FirstAidBean firstAidBean =
+        FirstAidBean.builder()
+            .province("江苏省")
+            .city("苏州市")
+            .area("相城区")
+            .attackAddress("东长路")
+            .attackTime(new Date())
+            .attackZone(FirstAidBean.AttackZone.A1)
+            .bloodPressure("90/101")
+            .consciousnessType(FirstAidBean.ConsciousnessType.C1)
+            .distressCase(FirstAidBean.DistressCase.DC1)
+            .distressCaseDetails(
+                new FirstAidBean.DistressCaseDetail[] {
+                  FirstAidBean.DistressCaseDetail.DCD1,
+                  FirstAidBean.DistressCaseDetail.DCD2,
+                  FirstAidBean.DistressCaseDetail.DCD3
+                })
+            .heartRate(90)
+            .inpatientId("776sgxju-91726312hnnsadsa-123123")
+            .isNullAttackDetailTime("1")
+            .medicalInsuranceNo("1111123")
+            .medicalInsuranceType(FirstAidBean.MedicalInsuranceType.MI1)
+            .outpatientId("aajshdbxnx-12312418-asdasdas")
+            .pulseRate(11)
+            .respirationRate(40)
+            .temperature(38.1f)
+
+            .cw120AmbulanceDepartment(FirstAidBean.Cw120AmbulanceDepartment.CD1)
+            .cw120ArrivedHospitalTime(new Date())
+            .cw120FirstDoctorName("Miey")
+            .cw120FirstDoctorTime(new Date())
+            .cw120FirstMcTime(new Date())
+            .cw120HelpTime(new Date())
+            .cw120IsTransHospital("1")
+            .cwComingWayCode(FirstAidBean.CwComingWayCode.C1)
+
+            .build();
+
+    System.out.println(gson.toJson(firstAidBean));
   }
 }
