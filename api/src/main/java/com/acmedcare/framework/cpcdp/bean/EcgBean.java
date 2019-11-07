@@ -20,37 +20,26 @@
  * SOFTWARE.
  */
 
-package com.acmedcare.framework.cpcdp.annotation;
+package com.acmedcare.framework.cpcdp.bean;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.io.Serializable;
 
 /**
- * {@link AllowValues}
+ * {@link EcgBean}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/7.
  */
-@Documented
-@Target({FIELD})
-@Retention(RUNTIME)
-public @interface AllowValues {
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+public class EcgBean implements Serializable {
 
-  /**
-   * Allow Value(s)
-   *
-   * @return allow value(s) defined
-   */
-  String[] value();
 
-  /**
-   * Value Desc Message
-   *
-   * @return message
-   */
-  String message() default "";
 }
