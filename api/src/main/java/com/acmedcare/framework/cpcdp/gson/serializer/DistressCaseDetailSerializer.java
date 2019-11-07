@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.serializer;
 
-import com.acmedcare.framework.cpcdp.bean.FirstAidBean;
+import com.acmedcare.framework.cpcdp.consts.DistressCaseDetail;
 import com.google.common.collect.Maps;
 import com.google.gson.*;
 
@@ -38,17 +38,17 @@ import java.util.Map;
  * @version ${project.version} - 2019/11/7.
  */
 public class DistressCaseDetailSerializer
-    implements JsonSerializer<FirstAidBean.DistressCaseDetail[]>,
-        JsonDeserializer<FirstAidBean.DistressCaseDetail[]> {
+    implements JsonSerializer<DistressCaseDetail[]>,
+        JsonDeserializer<DistressCaseDetail[]> {
 
   @SuppressWarnings("RegExpEmptyAlternationBranch")
   private static final String SPLIT = "|";
 
-  private static Map<String, FirstAidBean.DistressCaseDetail> map = Maps.newHashMap();
+  private static Map<String, DistressCaseDetail> map = Maps.newHashMap();
 
   static {
-    FirstAidBean.DistressCaseDetail[] details = FirstAidBean.DistressCaseDetail.values();
-    for (FirstAidBean.DistressCaseDetail detail : details) {
+    DistressCaseDetail[] details = DistressCaseDetail.values();
+    for (DistressCaseDetail detail : details) {
       map.put(detail.key(), detail);
     }
   }
@@ -70,7 +70,7 @@ public class DistressCaseDetailSerializer
    */
   @Override
   public JsonElement serialize(
-      FirstAidBean.DistressCaseDetail[] src, Type typeOfSrc, JsonSerializationContext context) {
+      DistressCaseDetail[] src, Type typeOfSrc, JsonSerializationContext context) {
 
     if (src == null || src.length == 0) {
       return null;
@@ -78,7 +78,7 @@ public class DistressCaseDetailSerializer
 
     StringBuilder result = new StringBuilder();
 
-    for (FirstAidBean.DistressCaseDetail distressCaseDetail : src) {
+    for (DistressCaseDetail distressCaseDetail : src) {
       if (distressCaseDetail != null
           && distressCaseDetail.key() != null
           && distressCaseDetail.key().trim().length() > 0) {
@@ -110,13 +110,13 @@ public class DistressCaseDetailSerializer
    * @throws JsonParseException if json is not in the expected format of {@code typeofT}
    */
   @Override
-  public FirstAidBean.DistressCaseDetail[] deserialize(
+  public DistressCaseDetail[] deserialize(
       JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
 
     String content = json.getAsString();
 
-    List<FirstAidBean.DistressCaseDetail> result = new ArrayList<>();
+    List<DistressCaseDetail> result = new ArrayList<>();
 
     if (content != null && content.trim().length() > 0) {
       if (content.contains(SPLIT)) {
@@ -128,6 +128,6 @@ public class DistressCaseDetailSerializer
       }
     }
 
-    return result.toArray(new FirstAidBean.DistressCaseDetail[0]);
+    return result.toArray(new DistressCaseDetail[0]);
   }
 }

@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.adapter;
 
-import com.acmedcare.framework.cpcdp.bean.PatientRegisterBean;
+import com.acmedcare.framework.cpcdp.consts.Job;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -37,9 +37,9 @@ import java.io.IOException;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class JobEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.Job> {
+public class JobEnumTypeAdapter extends TypeAdapter<Job> {
 
-  private PatientRegisterBean.Job[] values = PatientRegisterBean.Job.values();
+  private Job[] values = Job.values();
 
   /**
    * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
@@ -48,7 +48,7 @@ public class JobEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.Job> {
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, PatientRegisterBean.Job value) throws IOException {
+  public void write(JsonWriter out, Job value) throws IOException {
     out.value(value == null ? null : value.key());
   }
 
@@ -60,7 +60,7 @@ public class JobEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.Job> {
    * @return the converted Java object. May be null.
    */
   @Override
-  public PatientRegisterBean.Job read(JsonReader in) throws IOException {
+  public Job read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
@@ -68,7 +68,7 @@ public class JobEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.Job> {
 
     try {
       String key = in.nextString();
-      for (PatientRegisterBean.Job temp : values) {
+      for (Job temp : values) {
         if (temp.key().equals(key)) {
           return temp;
         }

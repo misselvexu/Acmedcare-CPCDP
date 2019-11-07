@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.adapter;
 
-import com.acmedcare.framework.cpcdp.bean.PatientRegisterBean;
+import com.acmedcare.framework.cpcdp.consts.MaritalStatus;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -37,9 +37,9 @@ import java.io.IOException;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegisterBean.MaritalStatus> {
+public class MaritalStatusEnumTypeAdapter extends TypeAdapter<MaritalStatus> {
 
-  private PatientRegisterBean.MaritalStatus[] values = PatientRegisterBean.MaritalStatus.values();
+  private MaritalStatus[] values = MaritalStatus.values();
 
   /**
    * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
@@ -48,7 +48,7 @@ public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegisterBea
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, PatientRegisterBean.MaritalStatus value) throws IOException {
+  public void write(JsonWriter out, MaritalStatus value) throws IOException {
     out.value(value == null ? null : value.key());
   }
 
@@ -60,7 +60,7 @@ public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegisterBea
    * @return the converted Java object. May be null.
    */
   @Override
-  public PatientRegisterBean.MaritalStatus read(JsonReader in) throws IOException {
+  public MaritalStatus read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
@@ -68,7 +68,7 @@ public class MaritalStatusEnumTypeAdapter extends TypeAdapter<PatientRegisterBea
 
     try {
       String key = in.nextString();
-      for (PatientRegisterBean.MaritalStatus temp : values) {
+      for (MaritalStatus temp : values) {
         if (temp.key().equals(key)) {
           return temp;
         }

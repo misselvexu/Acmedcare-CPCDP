@@ -23,7 +23,7 @@
 package com.acmedcare.framework.cpcdp.gson;
 
 import com.acmedcare.framework.cpcdp.Status;
-import com.acmedcare.framework.cpcdp.bean.PatientRegisterBean;
+import com.acmedcare.framework.cpcdp.consts.*;
 import com.acmedcare.framework.cpcdp.gson.adapter.*;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
@@ -48,11 +48,11 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
   private static Map<Class, TypeAdapter> typeAdapters = Maps.newConcurrentMap();
 
   static {
-    typeAdapters.put(PatientRegisterBean.Gender.class, new GenderEnumTypeAdapter());
-    typeAdapters.put(PatientRegisterBean.Job.class, new JobEnumTypeAdapter());
-    typeAdapters.put(PatientRegisterBean.MaritalStatus.class, new MaritalStatusEnumTypeAdapter());
-    typeAdapters.put(PatientRegisterBean.Culturedegree.class, new CulturedegreeEnumTypeAdapter());
-    typeAdapters.put(PatientRegisterBean.CredentialsType.class, new CredentialsTypeEnumTypeAdapter());
+    typeAdapters.put(Gender.class, new GenderEnumTypeAdapter());
+    typeAdapters.put(Job.class, new JobEnumTypeAdapter());
+    typeAdapters.put(MaritalStatus.class, new MaritalStatusEnumTypeAdapter());
+    typeAdapters.put(Culturedegree.class, new CulturedegreeEnumTypeAdapter());
+    typeAdapters.put(CredentialsType.class, new CredentialsTypeEnumTypeAdapter());
     typeAdapters.put(Status.class, new StatusEnumTypeAdapter());
   }
 
