@@ -82,6 +82,13 @@
 
     <modules>
         <module>api</module>
+        <module>core</module>
+
+        <!-- Spring Boot Starter -->
+        <module>starter</module>
+
+        <!-- Sample Demo -->
+        <module>sample</module>
     </modules>
 
     <dependencyManagement>
@@ -143,6 +150,18 @@
             <dependency>
                 <groupId>com.acmedcare.framework</groupId>
                 <artifactId>cpcdp-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.acmedcare.framework</groupId>
+                <artifactId>cpcdp-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.acmedcare.framework</groupId>
+                <artifactId>spring-boot-starter-cpcdp</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

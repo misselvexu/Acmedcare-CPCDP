@@ -22,6 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson;
 
+import com.acmedcare.framework.cpcdp.Status;
 import com.acmedcare.framework.cpcdp.bean.PatientRegister;
 import com.acmedcare.framework.cpcdp.gson.adapter.*;
 import com.google.common.collect.Maps;
@@ -52,6 +53,7 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
     typeAdapters.put(PatientRegister.MaritalStatus.class, new MaritalStatusEnumTypeAdapter());
     typeAdapters.put(PatientRegister.Culturedegree.class, new CulturedegreeEnumTypeAdapter());
     typeAdapters.put(PatientRegister.CredentialsType.class, new CredentialsTypeEnumTypeAdapter());
+    typeAdapters.put(Status.class, new StatusEnumTypeAdapter());
   }
 
   /**
