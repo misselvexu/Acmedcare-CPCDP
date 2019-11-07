@@ -22,12 +22,17 @@
 
 package com.acmedcare.framework.cpcdp.gson;
 
+import com.acmedcare.framework.cpcdp.bean.PatientRegister;
+import com.acmedcare.framework.cpcdp.gson.adapter.*;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 /**
  * {@link CpcdpTypeAdapterFactory}
@@ -39,6 +44,16 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
 
   private static final Logger log = LoggerFactory.getLogger(CpcdpTypeAdapterFactory.class);
 
+  private static Map<Class, TypeAdapter> typeAdapters = Maps.newConcurrentMap();
+
+  static {
+    typeAdapters.put(PatientRegister.Gender.class, new GenderEnumTypeAdapter());
+    typeAdapters.put(PatientRegister.Job.class, new JobEnumTypeAdapter());
+    typeAdapters.put(PatientRegister.MaritalStatus.class, new MaritalStatusEnumTypeAdapter());
+    typeAdapters.put(PatientRegister.Culturedegree.class, new CulturedegreeEnumTypeAdapter());
+    typeAdapters.put(PatientRegister.CredentialsType.class, new CredentialsTypeEnumTypeAdapter());
+  }
+
   /**
    * Returns a type adapter for {@code type}, or null if this factory doesn't support {@code type}.
    *
@@ -46,11 +61,20 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
    * @param type {@link TypeToken} instance
    */
   @Override
+  @SuppressWarnings("unchecked")
   public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
 
-    // TODO
     log.debug("[==CPCDP==] gson type is: {}", type);
 
+    Class<?> clazz = type.getRawType();
+
+    log.debug("[==CPCDP==] gson type raw class is: {}", clazz);
+
+    if (typeAdapters.containsKey(clazz)) {
+      return typeAdapters.get(clazz);
+    }
+
+    // default null
     return null;
   }
 }

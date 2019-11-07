@@ -20,43 +20,64 @@
  * SOFTWARE.
  */
 
-package com.acmedcare.framework.cpcdp.gson;
+package com.acmedcare.framework.cpcdp.gson.adapter;
 
+import com.acmedcare.framework.cpcdp.bean.PatientRegister;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
 /**
- * {@link EnumIntValueTypeAdapter}
+ * {@link GenderEnumTypeAdapter}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class EnumIntValueTypeAdapter extends TypeAdapter<Object> {
+public class GenderEnumTypeAdapter extends TypeAdapter<PatientRegister.Gender> {
+
+  private PatientRegister.Gender[] genders = PatientRegister.Gender.values();
 
   /**
-   * Writes one JSON value (an array, object, string, number, boolean or null)
-   * for {@code value}.
+   * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
    *
    * @param out
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, Object value) throws IOException {
-
+  public void write(JsonWriter out, PatientRegister.Gender value) throws IOException {
+    out.value(value == null ? null : value.key());
   }
 
   /**
-   * Reads one JSON value (an array, object, string, number, boolean or null)
-   * and converts it to a Java object. Returns the converted object.
+   * Reads one JSON value (an array, object, string, number, boolean or null) and converts it to a
+   * Java object. Returns the converted object.
    *
    * @param in
    * @return the converted Java object. May be null.
    */
   @Override
-  public Object read(JsonReader in) throws IOException {
-    return null;
+  public PatientRegister.Gender read(JsonReader in) throws IOException {
+    if (in.peek() == JsonToken.NULL) {
+      in.nextNull();
+      return null;
+    }
+
+    try {
+      String key = in.nextString();
+      for (PatientRegister.Gender gender : genders) {
+        if (gender.key().equals(key)) {
+          return gender;
+        }
+      }
+
+      // default
+      return null;
+    } catch (Exception e) {
+      throw new JsonSyntaxException(e);
+    }
   }
 }

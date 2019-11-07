@@ -22,7 +22,9 @@
 
 package com.acmedcare.framework.cpcdp.bean;
 
+import com.acmedcare.framework.cpcdp.Status;
 import com.acmedcare.framework.cpcdp.gson.CpcdpFieldNamingStrategy;
+import com.acmedcare.framework.cpcdp.gson.CpcdpTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
@@ -35,9 +37,12 @@ import org.junit.Test;
  */
 public class JsonTest {
 
-  Gson gson = new GsonBuilder().setFieldNamingStrategy(new CpcdpFieldNamingStrategy())
-      .registerTypeAdapterFactory()
-      .create();
+  Gson gson =
+      new GsonBuilder()
+          .setFieldNamingStrategy(new CpcdpFieldNamingStrategy())
+          .registerTypeAdapterFactory(new CpcdpTypeAdapterFactory())
+          .setPrettyPrinting()
+          .create();
 
   @Test
   public void test01() throws Exception {
@@ -46,9 +51,19 @@ public class JsonTest {
         PatientRegister.builder()
             .age(50)
             .birthday("2019-01-01")
-            .gender(PatientRegister.Gender.Male)
+            .gender(PatientRegister.Gender.MALE)
             .hospitalId("1231ujs-88811")
             .name("Miss")
+            .maritalStatus(PatientRegister.MaritalStatus.M01)
+            .contactPhone("1391011111")
+            .culturedegree(PatientRegister.Culturedegree.C01)
+            .job(PatientRegister.Job.J01)
+            .height(175)
+            .credentialsType(PatientRegister.CredentialsType.ID_CARD)
+            .idCard("111123321321321312")
+            .nation("汉族")
+            .status(Status.S01)
+            .weight(65.3f)
             .registerId("98uiujjs-112321jss-12321jnsd-00ssxb")
             .id("6541gshja-98usbcn-9wssdasww-8hsbdvk")
             .build();

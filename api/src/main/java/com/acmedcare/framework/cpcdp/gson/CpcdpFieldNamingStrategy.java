@@ -22,6 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson;
 
+import com.acmedcare.framework.cpcdp.annotation.JsonKey;
 import com.google.gson.FieldNamingStrategy;
 
 import java.lang.reflect.Field;
@@ -43,6 +44,12 @@ public class CpcdpFieldNamingStrategy implements FieldNamingStrategy {
    */
   @Override
   public String translateName(Field f) {
+    if (f.isAnnotationPresent(JsonKey.class)) {
+      JsonKey key = f.getAnnotation(JsonKey.class);
+      if (key != null && key.value().trim().length() > 0) {
+        return key.value().toUpperCase(Locale.ENGLISH);
+      }
+    }
     return separateCamelCase(f.getName(), "_").toUpperCase(Locale.ENGLISH);
   }
 
