@@ -237,7 +237,13 @@ public class FirstAidBean implements Serializable {
   private String cwZyTransHospitalName;
 
   /** 转院首次医疗接触时间 */
-  @Required private Date cwZyFirstMcTime;
+  @Required
+  @Condition(
+      field = "cwComingWayCode",
+      expectValue = "2",
+      type = CwComingWayCode.class,
+      isCpcEnum = true)
+  private Date cwZyFirstMcTime;
 
   /** 转出医院入门时间 */
   @Required
@@ -344,7 +350,13 @@ public class FirstAidBean implements Serializable {
   // *************************** 院内发病参数 ****************************
 
   /** 发病科室 */
-  @Required private String cwYnfbAttackDepartment;
+  @Required
+  @Condition(
+      field = "cwComingWayCode",
+      expectValue = "4",
+      type = CwComingWayCode.class,
+      isCpcEnum = true)
+  private String cwYnfbAttackDepartment;
 
   /** 首次医疗接触时间 */
   @Required

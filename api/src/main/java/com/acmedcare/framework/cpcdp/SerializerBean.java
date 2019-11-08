@@ -22,13 +22,6 @@
 
 package com.acmedcare.framework.cpcdp;
 
-import com.acmedcare.framework.cpcdp.consts.DistressCaseDetail;
-import com.acmedcare.framework.cpcdp.gson.CpcdpFieldNamingStrategy;
-import com.acmedcare.framework.cpcdp.gson.CpcdpTypeAdapterFactory;
-import com.acmedcare.framework.cpcdp.gson.serializer.DistressCaseDetailSerializer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.Serializable;
 
 /**
@@ -39,38 +32,12 @@ import java.io.Serializable;
  */
 public class SerializerBean implements Serializable {
 
-  static final class SerializerFactory {
-
-    static final String PRETTY_ENABLED_KEY = "cpcdp.json.pretty.enabled";
-
-    static final String DEFAULT_DATA_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";
-
-    static final Boolean ENABLED_PRETTY = Boolean.valueOf(System.getProperty(PRETTY_ENABLED_KEY, "false"));
-
-    static Gson gson;
-
-    static {
-      GsonBuilder builder =
-          new GsonBuilder()
-              .setFieldNamingStrategy(new CpcdpFieldNamingStrategy())
-              .registerTypeAdapterFactory(new CpcdpTypeAdapterFactory())
-              .registerTypeAdapter(DistressCaseDetail[].class, new DistressCaseDetailSerializer())
-              .setDateFormat(DEFAULT_DATA_FORMAT_PATTERN);
-
-      if (ENABLED_PRETTY) {
-        builder.setPrettyPrinting();
-      }
-
-      gson = builder.create();
-    }
-  }
-
   /**
    * Convert object to json string
    *
    * @return json result
    */
-  public String json() {
-    return SerializerFactory.gson.toJson(this);
+  public String toJson() {
+    return SerializerFactory.toJson(this);
   }
 }

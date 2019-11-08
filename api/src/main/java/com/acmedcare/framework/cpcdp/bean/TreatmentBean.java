@@ -22,6 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.bean;
 
+import com.acmedcare.framework.cpcdp.SerializerBean;
 import com.acmedcare.framework.cpcdp.annotation.AllowValues;
 import com.acmedcare.framework.cpcdp.annotation.Condition;
 import com.acmedcare.framework.cpcdp.annotation.Required;
@@ -43,7 +44,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuppressWarnings("ALL")
-public class TreatmentBean implements Serializable {
+public class TreatmentBean extends SerializerBean implements Serializable {
 
   // *************** 心电图参数 *****************
 

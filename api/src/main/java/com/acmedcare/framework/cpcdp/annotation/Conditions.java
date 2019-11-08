@@ -30,10 +30,16 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * {@link Conditions}
+ * {@link Conditions} 条件判断注解
+ *
+ * <pre>
+ *
+ * </pre>
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/7.
+ * @see Condition
+ * @see ComplexCondition
  */
 @Documented
 @Target({FIELD})

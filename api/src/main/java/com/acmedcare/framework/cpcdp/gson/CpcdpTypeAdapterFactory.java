@@ -66,11 +66,7 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
   @SuppressWarnings("unchecked")
   public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
 
-    log.debug("[==CPCDP==] gson type is: {}", type);
-
     Class<?> clazz = type.getRawType();
-
-    log.debug("[==CPCDP==] gson type raw class is: {}", clazz);
 
     if (typeAdapters.containsKey(clazz)) {
       return typeAdapters.get(clazz);

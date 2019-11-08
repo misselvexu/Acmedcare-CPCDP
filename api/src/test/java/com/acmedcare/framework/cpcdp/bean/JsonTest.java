@@ -24,14 +24,13 @@ package com.acmedcare.framework.cpcdp.bean;
 
 import com.acmedcare.framework.cpcdp.Status;
 import com.acmedcare.framework.cpcdp.consts.*;
-import com.acmedcare.framework.cpcdp.gson.CpcdpFieldNamingStrategy;
-import com.acmedcare.framework.cpcdp.gson.CpcdpTypeAdapterFactory;
-import com.acmedcare.framework.cpcdp.gson.serializer.DistressCaseDetailSerializer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.common.collect.Lists;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+
+import static com.acmedcare.framework.cpcdp.SerializerFactory.*;
 
 /**
  * {@link JsonTest}
@@ -41,15 +40,10 @@ import java.util.Date;
  */
 public class JsonTest {
 
-  Gson gson =
-      new GsonBuilder()
-          .setFieldNamingStrategy(new CpcdpFieldNamingStrategy())
-          .registerTypeAdapterFactory(new CpcdpTypeAdapterFactory())
-          .registerTypeAdapter(
-              DistressCaseDetail[].class, new DistressCaseDetailSerializer())
-          .setDateFormat("yyyy-MM-dd HH:mm:ss")
-          .setPrettyPrinting()
-          .create();
+  @Before
+  public void before() {
+    System.setProperty("cpcdp.json.pretty.enabled","true");
+  }
 
   @Test
   public void test01() throws Exception {
@@ -75,7 +69,7 @@ public class JsonTest {
             .id("6541gshja-98usbcn-9wssdasww-8hsbdvk")
             .build();
 
-    System.out.println(gson.toJson(register));
+    System.out.println(toJson(register));
   }
 
   @Test
@@ -108,6 +102,7 @@ public class JsonTest {
             .respirationRate(40)
             .temperature(38.1f)
 
+            .screening(Screening.S1)
             .cw120AmbulanceDepartment(Cw120AmbulanceDepartment.CD1)
             .cw120ArrivedHospitalTime(new Date())
             .cw120FirstDoctorName("Miey")
@@ -116,9 +111,29 @@ public class JsonTest {
             .cw120HelpTime(new Date())
             .cw120IsTransHospital("1")
             .cwComingWayCode(CwComingWayCode.C1)
+            .cwZyTransType(CwZyTransType.T1)
+            .isRepatency("1")
+            .isRepci("1")
 
             .build();
 
-    System.out.println(gson.toJson(firstAidBean));
+    System.out.println(toJson(firstAidBean));
+  }
+
+
+  @Test
+  public void test03() throws Exception {
+
+    TreatmentBean treatmentBean =
+        TreatmentBean.builder()
+            .hasEcgImage("1")
+            .ecgs(Lists.newArrayList())
+            .isRemoteEcgtran("1")
+            .remoteEcgTransmission("1")
+            .noEcgImageReason("no reason")
+            .tranTime(new Date())
+            .build();
+
+    System.out.println(treatmentBean.toJson());
   }
 }
