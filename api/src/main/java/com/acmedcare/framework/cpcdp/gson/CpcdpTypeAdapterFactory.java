@@ -22,7 +22,6 @@
 
 package com.acmedcare.framework.cpcdp.gson;
 
-import com.acmedcare.framework.cpcdp.Status;
 import com.acmedcare.framework.cpcdp.consts.*;
 import com.acmedcare.framework.cpcdp.gson.adapter.*;
 import com.google.common.collect.Maps;
@@ -53,7 +52,16 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
     typeAdapters.put(MaritalStatus.class, new MaritalStatusEnumTypeAdapter());
     typeAdapters.put(Culturedegree.class, new CulturedegreeEnumTypeAdapter());
     typeAdapters.put(CredentialsType.class, new CredentialsTypeEnumTypeAdapter());
-    typeAdapters.put(Status.class, new StatusEnumTypeAdapter());
+    typeAdapters.put(AttackZone.class, new AttackZoneEnumTypeAdapter());
+    typeAdapters.put(Cw120AmbulanceDepartment.class, new Cw120AmbulanceDepartmentEnumTypeAdapter());
+    typeAdapters.put(CwComingWayCode.class, new CwComingWayCodeEnumTypeAdapter());
+    typeAdapters.put(CwZyTransType.class, new CwZyTransTypeEnumTypeAdapter());
+    typeAdapters.put(DistressCase.class, new DistressCaseEnumTypeAdapter());
+    typeAdapters.put(HospitalPosition.class, new HospitalPositionEnumTypeAdapter());
+    typeAdapters.put(MedicalInsuranceType.class, new MedicalInsuranceTypeEnumTypeAdapter());
+    typeAdapters.put(Screening.class, new ScreeningEnumTypeAdapter());
+    typeAdapters.put(ThromDrugCode.class, new ThromDrugCodeEnumTypeAdapter());
+    typeAdapters.put(ThromDrugType.class, new ThromDrugTypeEnumTypeAdapter());
   }
 
   /**

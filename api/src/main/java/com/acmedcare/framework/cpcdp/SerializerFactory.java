@@ -173,6 +173,7 @@ public final class SerializerFactory {
     }
   }
 
+  @SuppressWarnings("DuplicatedCode")
   private static void processConditions(
       Map<String, Field> fieldsMap, Field field, Object instance) throws InvalidBeanParameterException{
 
