@@ -24,9 +24,13 @@ package com.acmedcare.framework.cpcdp;
 
 import com.acmedcare.framework.cpcdp.annotation.*;
 import com.acmedcare.framework.cpcdp.consts.DistressCaseDetail;
+import com.acmedcare.framework.cpcdp.consts.NstemiGraceEstimate;
+import com.acmedcare.framework.cpcdp.consts.NstemiGraceHrCondition;
 import com.acmedcare.framework.cpcdp.gson.CpcdpFieldNamingStrategy;
 import com.acmedcare.framework.cpcdp.gson.CpcdpTypeAdapterFactory;
 import com.acmedcare.framework.cpcdp.gson.serializer.DistressCaseDetailSerializer;
+import com.acmedcare.framework.cpcdp.gson.serializer.NstemiGraceEstimateSerializer;
+import com.acmedcare.framework.cpcdp.gson.serializer.NstemiGraceHrConditionSerializer;
 import com.acmedcare.framework.cpcdp.kits.Assert;
 import com.acmedcare.framework.cpcdp.kits.Reflections;
 import com.google.common.base.Strings;
@@ -75,6 +79,8 @@ public final class SerializerFactory {
             .setFieldNamingStrategy(new CpcdpFieldNamingStrategy())
             .registerTypeAdapterFactory(new CpcdpTypeAdapterFactory())
             .registerTypeAdapter(DistressCaseDetail[].class, new DistressCaseDetailSerializer())
+            .registerTypeAdapter(NstemiGraceEstimate[].class, new NstemiGraceEstimateSerializer())
+            .registerTypeAdapter(NstemiGraceHrCondition[].class, new NstemiGraceHrConditionSerializer())
             .setDateFormat(DEFAULT_DATA_FORMAT_PATTERN);
 
     if (ENABLED_PRETTY) {
@@ -289,7 +295,11 @@ public final class SerializerFactory {
     Set<String> expectValues = Sets.newHashSet(conditionAnnotation.expectValue());
 
     Class clazz = conditionAnnotation.type();
+    // TODO if result is an array ?
     boolean isCpcEnum = conditionAnnotation.isCpcEnum();
+    Class typeClass = conditionAnnotation.type();
+    Condition.MatchingStrategy strategy = conditionAnnotation.strategy();
+
 
     String expectFieldName = conditionAnnotation.field();
     Object expectFieldOriginValue = Reflections.getFieldValue(instance,fieldName);

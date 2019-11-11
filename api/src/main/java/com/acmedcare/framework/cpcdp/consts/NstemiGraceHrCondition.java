@@ -23,23 +23,25 @@
 package com.acmedcare.framework.cpcdp.consts;
 
 /**
- * 心功能分级
+ * Grace 极高危条件
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version}
  */
-public enum StemiKillipLevel {
+public enum NstemiGraceHrCondition {
 
   /** */
-  SK_L1("1", "I 级(no CHF)"),
-  SK_L2("2", "II 级(rales and/or JVD)"),
-  SK_L3("3", "III 级(pulmonary edema)"),
-  SK_L4("4", "IV 级(cardiogenic shock)"),
+  NSGRC_1("1", "急性心力衰竭伴难治性心绞痛和 ST 段改变"),
+  NSGRC_2("2", "危及生命的心律失常或心脏骤停"),
+  NSGRC_3("3", "心源性休克或血流动力学不稳定"),
+  NSGRC_4("4", "心肌梗死机械性并发症"),
+  NSGRC_5("5", "再发 ST-T 动态演变，尤其是伴有间 歇性 ST 段抬高"),
   ;
+
   String key;
   String value;
 
-  StemiKillipLevel(String key, String value) {
+  NstemiGraceHrCondition(String key, String value) {
     this.key = key;
     this.value = value;
   }

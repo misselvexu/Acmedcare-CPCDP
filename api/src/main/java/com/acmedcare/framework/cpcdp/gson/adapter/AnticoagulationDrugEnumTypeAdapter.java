@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.adapter;
 
-import com.acmedcare.framework.cpcdp.consts.StemiKillipLevel;
+import com.acmedcare.framework.cpcdp.consts.AnticoagulationDrug;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -32,14 +32,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * {@link StemiKillipLevelEnumTypeAdapter}
+ * {@link AnticoagulationDrugEnumTypeAdapter}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class StemiKillipLevelEnumTypeAdapter extends TypeAdapter<StemiKillipLevel> {
+public class AnticoagulationDrugEnumTypeAdapter extends TypeAdapter<AnticoagulationDrug> {
 
-  private StemiKillipLevel[] values = StemiKillipLevel.values();
+  private AnticoagulationDrug[] values = AnticoagulationDrug.values();
 
   /**
    * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
@@ -48,7 +48,7 @@ public class StemiKillipLevelEnumTypeAdapter extends TypeAdapter<StemiKillipLeve
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, StemiKillipLevel value) throws IOException {
+  public void write(JsonWriter out, AnticoagulationDrug value) throws IOException {
     out.value(value == null ? null : value.key());
   }
 
@@ -60,7 +60,7 @@ public class StemiKillipLevelEnumTypeAdapter extends TypeAdapter<StemiKillipLeve
    * @return the converted Java object. May be null.
    */
   @Override
-  public StemiKillipLevel read(JsonReader in) throws IOException {
+  public AnticoagulationDrug read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
@@ -68,7 +68,7 @@ public class StemiKillipLevelEnumTypeAdapter extends TypeAdapter<StemiKillipLeve
 
     try {
       String key = in.nextString();
-      for (StemiKillipLevel temp : values) {
+      for (AnticoagulationDrug temp : values) {
         if (temp.key().equals(key)) {
           return temp;
         }

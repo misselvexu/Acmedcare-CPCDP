@@ -52,7 +52,7 @@ public @interface Condition {
    *
    * @return class type
    */
-  Class type();
+  Class type() default String.class;
 
   /**
    * is Cpc Defined Enum
@@ -62,9 +62,55 @@ public @interface Condition {
   boolean isCpcEnum() default false;
 
   /**
-   * Expect Value(s)
+   * Expect Value(s), default value is null array.
    *
    * @return value(s) defined
    */
-  String[] expectValue();
+  String[] expectValue() default {};
+
+  /**
+   * Matching Strategy Defined
+   *
+   * @return value of enum {@link MatchingStrategy}
+   */
+  MatchingStrategy strategy() default MatchingStrategy.DEFAULT;
+
+  // =======
+
+  /**
+   * {@link MatchingStrategy}
+   *
+   * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
+   * @version ${project.version} - 2019/11/7.
+   */
+  public enum MatchingStrategy {
+
+    /**
+     * Default Strategy
+     *
+     * <p>Reference with {@link Condition#expectValue()}'s values to judge
+     */
+    DEFAULT,
+
+    /**
+     * Any Value in <code>enum</code> defined in expect array field
+     *
+     * <p>
+     */
+    ANY_VALUE_WITHIN_ENUMS_ARRAY,
+
+    /**
+     * Any Value in that defined in expect array field
+     *
+     * <p>
+     */
+    ANY_VALUE_WITHIN_ARRAY,
+
+    /**
+     * Not Null Only
+     *
+     * <p>
+     */
+    NONNULL
+  }
 }

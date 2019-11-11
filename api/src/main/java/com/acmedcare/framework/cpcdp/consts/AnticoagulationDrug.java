@@ -28,7 +28,7 @@ package com.acmedcare.framework.cpcdp.consts;
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version}
  */
-public enum StemiAnticoagulationDrug {
+public enum AnticoagulationDrug {
 
   /** */
   SAD1("1", "普通肝素"),
@@ -39,7 +39,7 @@ public enum StemiAnticoagulationDrug {
   String key;
   String value;
 
-  StemiAnticoagulationDrug(String key, String value) {
+  AnticoagulationDrug(String key, String value) {
     this.key = key;
     this.value = value;
   }

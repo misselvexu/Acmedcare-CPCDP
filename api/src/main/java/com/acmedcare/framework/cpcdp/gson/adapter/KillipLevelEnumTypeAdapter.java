@@ -22,7 +22,7 @@
 
 package com.acmedcare.framework.cpcdp.gson.adapter;
 
-import com.acmedcare.framework.cpcdp.consts.StemiAnticoagulationDrug;
+import com.acmedcare.framework.cpcdp.consts.KillipLevel;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -32,14 +32,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * {@link StemiAnticoagulationDrugEnumTypeAdapter}
+ * {@link KillipLevelEnumTypeAdapter}
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version} - 2019/11/6.
  */
-public class StemiAnticoagulationDrugEnumTypeAdapter extends TypeAdapter<StemiAnticoagulationDrug> {
+public class KillipLevelEnumTypeAdapter extends TypeAdapter<KillipLevel> {
 
-  private StemiAnticoagulationDrug[] values = StemiAnticoagulationDrug.values();
+  private KillipLevel[] values = KillipLevel.values();
 
   /**
    * Writes one JSON value (an array, object, string, number, boolean or null) for {@code value}.
@@ -48,7 +48,7 @@ public class StemiAnticoagulationDrugEnumTypeAdapter extends TypeAdapter<StemiAn
    * @param value the Java object to write. May be null.
    */
   @Override
-  public void write(JsonWriter out, StemiAnticoagulationDrug value) throws IOException {
+  public void write(JsonWriter out, KillipLevel value) throws IOException {
     out.value(value == null ? null : value.key());
   }
 
@@ -60,7 +60,7 @@ public class StemiAnticoagulationDrugEnumTypeAdapter extends TypeAdapter<StemiAn
    * @return the converted Java object. May be null.
    */
   @Override
-  public StemiAnticoagulationDrug read(JsonReader in) throws IOException {
+  public KillipLevel read(JsonReader in) throws IOException {
     if (in.peek() == JsonToken.NULL) {
       in.nextNull();
       return null;
@@ -68,7 +68,7 @@ public class StemiAnticoagulationDrugEnumTypeAdapter extends TypeAdapter<StemiAn
 
     try {
       String key = in.nextString();
-      for (StemiAnticoagulationDrug temp : values) {
+      for (KillipLevel temp : values) {
         if (temp.key().equals(key)) {
           return temp;
         }

@@ -23,35 +23,23 @@
 package com.acmedcare.framework.cpcdp.consts;
 
 /**
- * 病情评估明细
+ * 心功能分级
  *
  * @author <a href="mailto:iskp.me@gmail.com">Elve.Xu</a>
  * @version ${project.version}
  */
-public enum DistressCaseDetail {
+public enum KillipLevel {
 
   /** */
-  DCD1("1", "呼吸困难"),
-  DCD2("2", "腹痛"),
-  DCD3("3", "齿痛"),
-  DCD4("4", "肩背痛"),
-  DCD5("5", "合并出血"),
-  DCD6("6", "合并心衰"),
-  DCD7("7", "合并恶性心律失常"),
-  DCD8("8", "不明原因的昏厥"),
-  DCD9("9", "自汗、大汗淋漓"),
-  DCD10("10", "心慌心悸"),
-  DCD11("11", "烦躁不安"),
-  DCD12("12", "颈前部束缚感"),
-  DCD13("13", "乏力"),
-  DCD14("14", "气喘"),
-  DCD99("99", "其他"),
+  SK_L1("1", "I 级(no CHF)"),
+  SK_L2("2", "II 级(rales and/or JVD)"),
+  SK_L3("3", "III 级(pulmonary edema)"),
+  SK_L4("4", "IV 级(cardiogenic shock)"),
   ;
-
   String key;
   String value;
 
-  DistressCaseDetail(String key, String value) {
+  KillipLevel(String key, String value) {
     this.key = key;
     this.value = value;
   }

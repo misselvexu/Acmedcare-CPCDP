@@ -31,6 +31,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import static com.acmedcare.framework.cpcdp.annotation.Condition.MatchingStrategy.ANY_VALUE_WITHIN_ENUMS_ARRAY;
+
 /**
  * {@link TreatmentBean}
  *
@@ -530,7 +532,8 @@ public class TreatmentBean extends SerializerBean implements Serializable {
       type = CpDiagnosisCode.class,
       isCpcEnum = true,
       expectValue = "1")
-  private StemiKillipLevel stemiKillipLevel;
+  @JsonKey("STEMI_KILLIP_LEVEL")
+  private KillipLevel stemiKillipLevel;
 
   /**
    * 绕行急诊
@@ -756,7 +759,8 @@ public class TreatmentBean extends SerializerBean implements Serializable {
         isCpcEnum = true,
         expectValue = "1")
   })
-  private StemiAnticoagulationDrug stemiAnticoagulationDrug;
+  @JsonKey("STEMI_ANTICOAGULATION_DRUG")
+  private AnticoagulationDrug stemiAnticoagulationDrug;
 
   /**
    * 抗凝(剂量)
@@ -1767,4 +1771,471 @@ public class TreatmentBean extends SerializerBean implements Serializable {
       value = {"0", "1"},
       message = "0:否 1:是")
   private String stemiIsRepatencyDt;
+
+  // *****************  诊断-NSTEMI ****************
+
+  /**
+   * 患者自愿放弃后续治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:无 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:无 1:是")
+  private String nstemiGiveUpTreatment;
+
+  /**
+   * 初步诊断时间
+   *
+   * <pre>
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  private Date nstemiDiagnosisTime;
+
+  /**
+   * 医生
+   *
+   * <pre>
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  private String nstemiDoctorName;
+
+  /**
+   * 心功能分级
+   *
+   * <pre>
+   *   取值：
+   *      1:I 级(no CHF)
+   *      2:II 级(rales and/or JVD)
+   *      3:III 级(pulmonary edema)
+   *      4:IV 级(cardiogenic shock)
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @JsonKey("NSTEMI_KILLIP_LEVEL")
+  private KillipLevel nstemiKillipLevel;
+
+  /**
+   * 绕行急诊
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  private String nstemiIsBypassEmergency;
+
+  /**
+   * 绕行 CCU
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  private String nstemiIsBypassCcu;
+
+  // ****************** 诊断-NSTEMI-药物 ******************
+
+  /**
+   * 抗血小板治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String nstemiIsDrug;
+
+  /**
+   * 阿司匹林(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   *      2、《抗血小板治疗》为“是”
+   *   备注：
+   *      保留 0 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(field = "nstemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private float nstemiAspirinDose;
+
+  /**
+   * 阿司匹林(时间)
+   *
+   * <pre>
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   *      2、《抗血小板治疗》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(field = "nstemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private Date nstemiAspirinTime;
+
+  /**
+   * 氯吡格雷(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   *   备注：
+   *      保留 0 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private float nstemiClopidogrelDose;
+
+  /**
+   * 氯吡格雷(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《抗血小板治疗》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(field = "nstemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private Date nstemiClopidogrelTime;
+
+  /**
+   * 替格瑞洛(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   *   备注：
+   *      保留 0 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(field = "nstemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private float nstemiTicagrelorDose;
+
+  /**
+   * 替格瑞洛(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《抗血小板治疗》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(field = "nstemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private Date nstemiTicagrelorTime;
+
+  /**
+   * 抗凝
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String nstemiIsAnticoagulation;
+
+  /**
+   * 抗凝(抗凝)
+   *
+   * <pre>
+   *   取值：
+   *      1:普通肝素 2:低分子肝素 3:比伐卢定 4:磺达肝癸钠
+   *
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《抗凝》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiIsAnticoagulation",
+        type = String.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  @JsonKey("NSTEMI_ANTICOAGULATION_DRUG")
+  private AnticoagulationDrug nstemiAnticoagulationDrug;
+
+  /**
+   * 抗凝(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《抗凝》为“是”
+   *   备注：
+   *      保留 1 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiIsAnticoagulation",
+        type = String.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  private float nstemiAnticoagulationDose;
+
+  /**
+   * 抗凝(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《抗凝》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiIsAnticoagulation",
+        type = String.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  private Date nstemiAnticoagulationTime;
+
+  /**
+   * 他汀治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String nstemiIntensifyStatinsTreat;
+
+  /**
+   * β受体阻滞剂
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String nstemiIsBetaBlocker;
+
+  // ****************** 诊断-NSTEMI-Grace 评估 *********************
+
+  /**
+   * Grace 评估
+   *
+   * <pre>
+   *   取值:
+   *      1:发病后曾出现心脏骤停
+   *      2:心电图 ST 段改变
+   *      3:心肌坏死标志物升高
+   *
+   *   条件:
+   *      1、《初步诊断》为“NSTEMI”
+   *
+   *   备注:
+   *      多选用竖线隔开。 如"1|2|3"
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @JsonKey("NSTEMI_GRACE_ESTIMATE")
+  private NstemiGraceEstimate[] nstemiGraceEstimates;
+
+  /**
+   * Grace 极高危条件
+   *
+   * <pre>
+   *   取值:
+   *      1:急性心力衰竭伴难治性心绞痛和 ST 段改变
+   *      2:危及生命的心律失常或心脏骤停
+   *      3:心源性休克或血流动力学不稳定
+   *      4:心肌梗死机械性并发症
+   *      5:再发 ST-T 动态演变，尤其是伴有间 歇性 ST 段抬高
+   *
+   *   条件:
+   *      1、《初步诊断》为“NSTEMI”
+   *
+   *   备注:
+   *      多选用竖线隔开。 如"1|2|3"
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @JsonKey("NSTEMI_GRACE_HR_CONDITION")
+  private NstemiGraceHrCondition[] nstemiGraceHrCondition;
+
+  /**
+   * Grace 分值
+   *
+   * <pre>
+   *   条件:
+   *      1、《初步诊断》为“NSTEMI”，并且《Grace 极高危条件》勾选了其中任何一项
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiGraceHrCondition",
+        type = NstemiGraceHrCondition.class,
+        isCpcEnum = true,
+        strategy = ANY_VALUE_WITHIN_ENUMS_ARRAY)
+  })
+  private String nstemiGraceValue;
 }
