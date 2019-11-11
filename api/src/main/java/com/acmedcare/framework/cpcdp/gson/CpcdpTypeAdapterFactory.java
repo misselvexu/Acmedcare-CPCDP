@@ -76,6 +76,11 @@ public class CpcdpTypeAdapterFactory implements TypeAdapterFactory {
 
     typeAdapters.put(StemiDiagnosisUnitCodeDT.class, new StemiDiagnosisUnitCodeDTEnumTypeAdapter());
     typeAdapters.put(StemiScreening.class, new StemiScreeningEnumTypeAdapter());
+
+    typeAdapters.put(NstemiInvasiveStrategy.class, new NstemiInvasiveStrategyEnumTypeAdapter());
+    typeAdapters.put(NstemiRiskLaminationAG.class, new NstemiRiskLaminationAGEnumTypeAdapter());
+    typeAdapters.put(NstemiRiskLamination.class, new NstemiRiskLaminationEnumTypeAdapter());
+    typeAdapters.put(NstemiStrategy.class, new NstemiStrategyEnumTypeAdapter());
   }
 
   /**

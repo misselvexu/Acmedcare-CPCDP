@@ -43,7 +43,6 @@ import static com.acmedcare.framework.cpcdp.annotation.Condition.MatchingStrateg
 @Setter
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @SuppressWarnings("ALL")
 public class TreatmentBean extends SerializerBean implements Serializable {
 
@@ -2238,4 +2237,355 @@ public class TreatmentBean extends SerializerBean implements Serializable {
         strategy = ANY_VALUE_WITHIN_ENUMS_ARRAY)
   })
   private String nstemiGraceValue;
+
+  /**
+   * Grace 危险分层
+   *
+   * <pre>
+   *   取值：
+   *      1:极高危 2:高危 3:中危 4:低危
+   *
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  private NstemiRiskLamination nstemiRiskLamination;
+
+  // **************** 诊断-NSTEMI-再次危险分层 *******************
+
+  /**
+   * Grace 危险分层
+   *
+   * <pre>
+   *   取值：
+   *      0:未做 1:转为 STEMI 2:极高危 3:高危 4:中危 5:低危
+   *
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "2")
+  @JsonKey("NSTEMI_RISK_LAMINATION_AG")
+  private NstemiRiskLaminationAG nstemiRiskLaminationAG;
+
+  /**
+   * 再次危险分层时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“转为 STEMI ” 或“极高危”或“高危”或“中危”或“低危”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"1", "2", "3", "4", "5"})
+  })
+  @JsonKey("NSTEMI_RISK_LAMINATION_AG_TIME")
+  private Date nstemiRiskLaminationAgTime;
+
+  // ****************** 诊断-NSTEMI-处理策略 ********************
+
+  /**
+   * 策略
+   *
+   * <pre>
+   *   取值：
+   *      1:保守治疗(仅药物治疗)
+   *      2:侵入性策略
+   *
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"})
+  })
+  private NstemiStrategy nstemiStrategy;
+
+  /**
+   * 侵入性策略
+   *
+   * <pre>
+   *   取值：
+   *      1:紧急介入治疗
+   *      2:24H 内介入治疗
+   *      3:72H 内介入治疗
+   *      4:择期介入治疗
+   *      5:CABG
+   *
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"})
+  })
+  private NstemiInvasiveStrategy nstemiInvasiveStrategy;
+
+  /**
+   * 决定医生
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   *      4、《侵入性策略》为“紧急介入治疗”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "nstemiInvasiveStrategy",
+        type = NstemiInvasiveStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private String nstemiStrategyDoctorName;
+
+  /**
+   * 决定介入手术时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   *      4、《侵入性策略》为“紧急介入治疗”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "nstemiInvasiveStrategy",
+        type = NstemiInvasiveStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date nstemiDecisionOperationTime;
+
+  /**
+   * 启动导管室时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   *      4、《侵入性策略》为“紧急介入治疗”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "nstemiInvasiveStrategy",
+        type = NstemiInvasiveStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date nstemiStartConduitTime;
+
+  /**
+   * 开始知情同意时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   *      4、《侵入性策略》为“紧急介入治疗”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "nstemiInvasiveStrategy",
+        type = NstemiInvasiveStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date nstemiStartAgreeTime;
+
+  /**
+   * 签署知情同意时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   *      4、《侵入性策略》为“紧急介入治疗”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "nstemiInvasiveStrategy",
+        type = NstemiInvasiveStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date nstemiSignAgreeTime;
+
+  /**
+   * 实际介入治疗时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“NSTEMI”
+   *      2、《再次危险分层》为“未做”或“极高 危”或“高危”或“中危”或“低危”
+   *      3、《策略》为“侵入性策略”
+   *      4、《侵入性策略》为“24H 内介入治疗”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "2"),
+    @Condition(
+        field = "nstemiRiskLaminationAG",
+        type = NstemiRiskLaminationAG.class,
+        isCpcEnum = true,
+        expectValue = {"0", "2", "3", "4", "5"}),
+    @Condition(
+        field = "nstemiStrategy",
+        type = NstemiStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "nstemiInvasiveStrategy",
+        type = NstemiInvasiveStrategy.class,
+        isCpcEnum = true,
+        expectValue = {"2"})
+  })
+  private Date nstemiActualInterventTime;
+
+  // ****************** 诊断-UA ********************
+
 }

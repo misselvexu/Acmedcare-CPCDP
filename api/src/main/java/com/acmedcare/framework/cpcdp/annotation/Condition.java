@@ -55,7 +55,7 @@ public @interface Condition {
   Class type() default String.class;
 
   /**
-   * is Cpc Defined Enum
+   * is Cpc Defined Enum(s) in package {@link com.acmedcare.framework.cpcdp.consts}
    *
    * @return false / true
    */
@@ -88,7 +88,7 @@ public @interface Condition {
     /**
      * Default Strategy
      *
-     * <p>Reference with {@link Condition#expectValue()}'s values to judge
+     * <p>Use {@link Condition#expectValue()}'s values to judge
      */
     DEFAULT,
 
