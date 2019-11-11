@@ -1289,4 +1289,482 @@ public class TreatmentBean extends SerializerBean implements Serializable {
         expectValue = {"5"})
   })
   private String stemiTpciType;
+
+  // ************************ 诊断-STEMI-院内溶栓治疗 *************************
+
+  /**
+   * 溶栓筛查
+   *
+   * <pre>
+   *   取值：
+   *      1:合适 2:不合适 3:未筛查
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"})
+  })
+  private StemiScreening stemiScreening;
+
+  /**
+   * 溶栓治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:无 1:有
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:无 1:有")
+  private String stemiIsThrombolysis;
+
+  /**
+   * 直达溶栓场所
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiIsDirect;
+
+  /**
+   * 溶栓场所
+   *
+   * <pre>
+   *   取值：
+   *      1:本院急诊科 2:本院心内科 3:其他科室
+   *
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  @JsonKey("STEMI_DIAGNOSIS_UNIT_CODE_DT")
+  private StemiDiagnosisUnitCodeDT stemiDiagnosisUnitCodeDT;
+
+  /**
+   * 开始知情同意
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  private Date stemiThromStartAgreeTime;
+
+  /**
+   * 签署知情同意书
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  private Date stemiThromSignAgreeTime;
+
+  /**
+   * 开始溶栓时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  private Date stemiThromStartTimeDt;
+
+  /**
+   * 溶栓结束时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  private Date stemiThromEndTimeDt;
+
+  /**
+   * 药物
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  @JsonKey("STEMI_THROM_DRUG_TYPE_DT")
+  private ThromDrugType stemiThromDrugTypeDt;
+
+  /**
+   * 剂量
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  @JsonKey("STEMI_THROM_DRUG_CODE_DT")
+  private ThromDrugCode stemiThromDrugCodeDt;
+
+  /**
+   * 溶栓再通
+   *
+   * <pre>
+   *   取值:
+   *      0:否 1:是
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“ 溶栓”
+   *      4、《溶栓筛查》为“合适”
+   *      5、《溶栓治疗》为“有”
+   *
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"2"}),
+    @Condition(
+        field = "stemiScreening",
+        type = StemiScreening.class,
+        isCpcEnum = true,
+        expectValue = {"1"}),
+    @Condition(
+        field = "stemiIsThrombolysis",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = {"1"})
+  })
+  @JsonKey("STEMI_IS_REPATENCY_DT")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiIsRepatencyDt;
 }
