@@ -23,9 +23,8 @@
 package com.acmedcare.framework.cpcdp.bean;
 
 import com.acmedcare.framework.cpcdp.SerializerBean;
-import com.acmedcare.framework.cpcdp.annotation.AllowValues;
-import com.acmedcare.framework.cpcdp.annotation.Condition;
-import com.acmedcare.framework.cpcdp.annotation.Required;
+import com.acmedcare.framework.cpcdp.annotation.*;
+import com.acmedcare.framework.cpcdp.consts.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -140,8 +139,1154 @@ public class TreatmentBean extends SerializerBean implements Serializable {
 
   // *************** 实验室检查 ***************
 
+  /**
+   * 肌钙蛋白
+   *
+   * <pre>
+   *   取值：
+   *    0:否 1:是
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  private String isCtnt;
 
+  /**
+   * 肌钙蛋白集合
+   *
+   * <pre>
+   *   条件：
+   *    《肌钙蛋白》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isCtnt", expectValue = "1", type = String.class)
+  private List<Ctntbean> ctnts;
 
+  /**
+   * 血清肌酐
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  private String isCr;
 
+  /**
+   * 血清肌酐(数值)
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   *
+   *   条件:
+   *    《血清肌酐》为“是”
+   *
+   *   备注:
+   *     保留 2 位小数
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isCr", expectValue = "1", type = String.class)
+  private float crValue;
 
+  /**
+   * D-二聚体
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  @JsonKey("IS_Ddimer")
+  private String isDdimer;
+
+  /**
+   * D-二聚体(数值)
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   *
+   *   条件:
+   *    《D-二聚体》为“是”
+   *
+   *   备注:
+   *     保留 2 位小数
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isDdimer", expectValue = "1", type = String.class)
+  @JsonKey("Ddimer_VALUE")
+  private float ddimerValue;
+
+  /**
+   * D-二聚体(单位)
+   *
+   * <pre>
+   *   取值:
+   *     1:ng/mL 2:ug/mL 3:ug/L
+   *   条件:
+   *    《D-二聚体》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isDdimer", expectValue = "1", type = String.class)
+  @JsonKey("Ddimer_UNIT")
+  private DdimerUnit ddimerUnit;
+
+  /**
+   * BNP
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  private String isBnp;
+
+  /**
+   * BNP(数值)
+   *
+   * <pre>
+   *   条件:
+   *    《BNP》为“是”
+   *
+   *   备注:
+   *     保留 2 位小数
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isBnp", expectValue = "1", type = String.class)
+  @JsonKey("BNP_VALUE")
+  private float bnpValue;
+
+  /**
+   * NT-proBNP
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  @JsonKey("IS_NTproBNP")
+  private String isNtprobnp;
+
+  /**
+   * NT-proBNP(数值)
+   *
+   * <pre>
+   *   条件:
+   *    《NT-proBNP》为“是”
+   *
+   *   备注:
+   *     保留 2 位小数
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isNtprobnp", expectValue = "1", type = String.class)
+  @JsonKey("NTproBNP_VALUE")
+  private float ntprobnpValue;
+
+  /**
+   * Myo
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  @JsonKey("IS_MYO")
+  private String isMyo;
+
+  /**
+   * Myo(数值)
+   *
+   * <pre>
+   *   条件:
+   *    《Myo》为“是”
+   *
+   *   备注:
+   *     保留 2 位小数
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isMyo", expectValue = "1", type = String.class)
+  @JsonKey("MYO_VALUE")
+  private float myoValue;
+
+  /**
+   * Myo(单位)
+   *
+   * <pre>
+   *   取值:
+   *     1:ng/mL 2:ug/L
+   *   条件:
+   *    《Myo》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isMyo", expectValue = "1", type = String.class)
+  @JsonKey("MYO_UNIT")
+  private MyoUnit myoUnit;
+
+  /**
+   * CKMB
+   *
+   * <pre>
+   *   取值：
+   *    0:无 1:有
+   * </pre>
+   */
+  @Required
+  @AllowValues({"0", "1"})
+  @JsonKey("IS_CKMB")
+  private String isCkmb;
+
+  /**
+   * CKMB(数值)
+   *
+   * <pre>
+   *   条件:
+   *    《CKMB》为“是”
+   *
+   *   备注:
+   *     保留 2 位小数
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isCkmb", expectValue = "1", type = String.class)
+  @JsonKey("CKMB_VALUE")
+  private float ckmbValue;
+
+  /**
+   * CKMB(单位)
+   *
+   * <pre>
+   *   取值:
+   *     1:ng/mL 2:ug/L 3:u/L
+   *   条件:
+   *    《CKMB》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isCkmb", expectValue = "1", type = String.class)
+  @JsonKey("CKMB_UNIT")
+  private CkmbUnit ckmbUnit;
+
+  // *************** 心内科会诊 ***************
+
+  /**
+   * 心内科会诊
+   *
+   * <pre>
+   *   取值：
+   *    0:否 1:是
+   * </pre>
+   */
+  @Required
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String isNoticeImcd;
+
+  /**
+   * 会诊类型
+   *
+   * <pre>
+   *   取值:
+   *     1:现场会诊 2:远程会诊
+   *   条件:
+   *    《心内科会诊》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isNoticeImcd", expectValue = "1", type = String.class)
+  private ImcdType imcdType;
+
+  /**
+   * 通知会诊时间
+   *
+   * <pre>
+   *   条件:
+   *    《心内科会诊》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isNoticeImcd", expectValue = "1", type = String.class)
+  private Date noticeImcdTime;
+
+  /**
+   * 会诊时间
+   *
+   * <pre>
+   *   条件:
+   *    《心内科会诊》为“是”
+   * </pre>
+   */
+  @Required
+  @Condition(field = "isNoticeImcd", expectValue = "1", type = String.class)
+  private Date consultationTime;
+
+  // *************** 诊断 ***************
+
+  /**
+   * 初步诊断
+   *
+   * <pre>
+   *   取值：
+   *      1:STEMI
+   *      2:NSTEMI
+   *      3:UA
+   *      4:主动脉夹层
+   *      5:肺动脉栓塞
+   *      6:非 ACS 心源性胸痛
+   *      7:其它非心源性胸痛
+   *      8:待查
+   * </pre>
+   */
+  @Required private CpDiagnosisCode cpDiagnosisCode;
+
+  // *************** 诊断-STEMI ***************
+
+  /**
+   * 患者自愿放弃后续治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:无 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:无 1:是")
+  private String stemiGiveUpTreatment;
+
+  /**
+   * 初步诊断时间
+   *
+   * <pre>
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  private Date stemiDiagnosisTime;
+
+  /**
+   * 医生
+   *
+   * <pre>
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  private String stemiDoctorName;
+
+  /**
+   * 心功能分级
+   *
+   * <pre>
+   *   取值：
+   *      1:I 级(no CHF)
+   *      2:II 级(rales and/or JVD)
+   *      3:III 级(pulmonary edema)
+   *      4:IV 级(cardiogenic shock)
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  private StemiKillipLevel stemiKillipLevel;
+
+  /**
+   * 绕行急诊
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  private String stemiIsBypassEmergency;
+
+  /**
+   * 绕行 CCU
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  private String stemiIsBypassCcu;
+
+  // ************* 诊断-STEMI-药物 *************
+
+  /**
+   * 抗血小板治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiIsDrug;
+
+  /**
+   * 阿司匹林(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   *   备注：
+   *      保留 0 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private float stemiAspirinDose;
+
+  /**
+   * 阿司匹林(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private Date stemiAspirinTime;
+
+  /**
+   * 氯吡格雷(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   *   备注：
+   *      保留 0 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private float stemiClopidogrelDose;
+
+  /**
+   * 氯吡格雷(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private Date stemiClopidogrelTime;
+
+  /**
+   * 替格瑞洛(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   *   备注：
+   *      保留 0 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private float stemiTicagrelorDose;
+
+  /**
+   * 替格瑞洛(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗血小板治疗》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(field = "stemiIsDrug", type = String.class, isCpcEnum = true, expectValue = "1")
+  })
+  private Date stemiTicagrelorTime;
+
+  /**
+   * 抗凝
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiIsAnticoagulation;
+
+  /**
+   * 抗凝(抗凝)
+   *
+   * <pre>
+   *   取值：
+   *      1:普通肝素 2:低分子肝素 3:比伐卢定 4:磺达肝癸钠
+   *
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗凝》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsAnticoagulation",
+        type = String.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  private StemiAnticoagulationDrug stemiAnticoagulationDrug;
+
+  /**
+   * 抗凝(剂量)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗凝》为“是”
+   *   备注：
+   *      保留 1 位小数
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsAnticoagulation",
+        type = String.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  private float stemiAnticoagulationDose;
+
+  /**
+   * 抗凝(时间)
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《抗凝》为“是”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsAnticoagulation",
+        type = String.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  private Date stemiAnticoagulationTime;
+
+  /**
+   * 他汀治疗
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiIntensifyStatinsTreat;
+
+  /**
+   * β受体阻滞剂
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiReceptorRetardantUsing;
+
+  // ******************* 诊断-STEMI-再灌注措施 ********************
+
+  /**
+   * 再灌注措施
+   *
+   * <pre>
+   *   取值：
+   *      0:否 1:是
+   *   条件：
+   *      《初步诊断》为“STEMI”
+   * </pre>
+   */
+  @Required
+  @Condition(
+      field = "cpDiagnosisCode",
+      type = CpDiagnosisCode.class,
+      isCpcEnum = true,
+      expectValue = "1")
+  @AllowValues(
+      value = {"0", "1"},
+      message = "0:否 1:是")
+  private String stemiIsReperfusion;
+
+  /**
+   * 无再灌注措施
+   *
+   * <pre>
+   *   取值：
+   *      1:无明确胸痛，生命体征平稳
+   *      2:错过再灌注时间
+   *      3:出血
+   *      4:严重肝肾功能不全
+   *      5:经济原因
+   *      6:家庭放弃
+   *      9:其他原因
+   *
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“否”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "0")
+  })
+  private StemiNoReperfusionReason stemiNoReperfusionReason;
+
+  /**
+   * 措施
+   *
+   * <pre>
+   *   取值：
+   *      1:直接 PCI
+   *      2: 溶栓
+   *      3:择期介入
+   *      4:CABG
+   *      5:转运 PCI
+   *
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1")
+  })
+  private StemiMeasures stemiMeasures;
+
+  /**
+   * 措施(溶栓)
+   *
+   * <pre>
+   *   取值：
+   *      1:补救 PCI
+   *      2:溶栓后介入
+   *
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“溶栓”
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = "2")
+  })
+  private StemiMeasuresThrombolysis stemiMeasuresThrombolysis;
+
+  /**
+   * 决定医生
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”s
+   * </pre>
+   */
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = "1")
+  })
+  private String stemiMeasuresDoctorName;
+
+  /**
+   * 决定介入手术时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *
+   *      3、《措施》为“直接 PCI” 或(“溶栓”并为“补救 PCI”)或“择期介入”
+   * </pre>
+   */
+  @Required
+  @ComplexCondition(
+      value = {
+        @Conditions({
+          @Condition(
+              field = "cpDiagnosisCode",
+              type = CpDiagnosisCode.class,
+              isCpcEnum = true,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiIsReperfusion",
+              type = String.class,
+              isCpcEnum = false,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiMeasures",
+              type = StemiMeasures.class,
+              isCpcEnum = true,
+              expectValue = {"1", "3"})
+        }),
+        @Conditions({
+          @Condition(
+              field = "cpDiagnosisCode",
+              type = CpDiagnosisCode.class,
+              isCpcEnum = true,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiIsReperfusion",
+              type = String.class,
+              isCpcEnum = false,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiMeasures",
+              type = StemiMeasures.class,
+              isCpcEnum = true,
+              expectValue = {"2"}),
+          @Condition(
+              field = "stemiMeasuresThrombolysis",
+              isCpcEnum = true,
+              type = StemiMeasuresThrombolysis.class,
+              expectValue = "1")
+        })
+      },
+      symbol = ComplexCondition.Symbol.OR)
+  private Date stemiDecisionOperationTime;
+
+  /**
+   * 启动导管室时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date stemiStartConduitTime;
+
+  /**
+   * 开始知情同意时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date stemiStartAgreeTime;
+
+  /**
+   * 签署知情同意时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"1"})
+  })
+  private Date stemiSignAgreeTime;
+
+  /**
+   * 造影开始时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”
+   * </pre>
+   */
+  @Required
+  @ComplexCondition(
+      value = {
+        @Conditions({
+          @Condition(
+              field = "cpDiagnosisCode",
+              type = CpDiagnosisCode.class,
+              isCpcEnum = true,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiIsReperfusion",
+              type = String.class,
+              isCpcEnum = false,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiMeasures",
+              type = StemiMeasures.class,
+              isCpcEnum = true,
+              expectValue = {"3"})
+        }),
+        @Conditions({
+          @Condition(
+              field = "cpDiagnosisCode",
+              type = CpDiagnosisCode.class,
+              isCpcEnum = true,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiIsReperfusion",
+              type = String.class,
+              isCpcEnum = false,
+              expectValue = "1"),
+          @Condition(
+              field = "stemiMeasures",
+              type = StemiMeasures.class,
+              isCpcEnum = true,
+              expectValue = {"2"}),
+          @Condition(
+              field = "stemiMeasuresThrombolysis",
+              isCpcEnum = true,
+              type = StemiMeasuresThrombolysis.class,
+              expectValue = "1")
+        })
+      },
+      symbol = ComplexCondition.Symbol.OR)
+  private Date stemiStartRadiographyTime;
+
+  /**
+   * 决定 CABG 时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"4"})
+  })
+  private Date stemiDecisionCabgTime;
+
+  /**
+   * 开始 CABG 时间
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“直接 PCI”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"4"})
+  })
+  private Date stemiStartCabgTime;
+
+  /**
+   * 转运 PCI
+   *
+   * <pre>
+   *   条件：
+   *      1、《初步诊断》为“STEMI”
+   *      2、《再灌注措施》为“是”
+   *      3、《措施》为“转运 PCI”
+   * </pre>
+   */
+  @Required
+  @Conditions({
+    @Condition(
+        field = "cpDiagnosisCode",
+        type = CpDiagnosisCode.class,
+        isCpcEnum = true,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiIsReperfusion",
+        type = String.class,
+        isCpcEnum = false,
+        expectValue = "1"),
+    @Condition(
+        field = "stemiMeasures",
+        type = StemiMeasures.class,
+        isCpcEnum = true,
+        expectValue = {"5"})
+  })
+  private String stemiTpciType;
 }
