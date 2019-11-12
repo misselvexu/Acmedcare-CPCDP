@@ -44,6 +44,7 @@ import java.io.Serializable;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @SuppressWarnings("ALL")
 public class PatientRegisterBean implements Serializable {
 

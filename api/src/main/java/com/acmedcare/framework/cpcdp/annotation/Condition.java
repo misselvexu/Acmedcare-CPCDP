@@ -97,20 +97,6 @@ public @interface Condition {
      *
      * <p>
      */
-    ANY_VALUE_WITHIN_ENUMS_ARRAY,
-
-    /**
-     * Any Value in that defined in expect array field
-     *
-     * <p>
-     */
-    ANY_VALUE_WITHIN_ARRAY,
-
-    /**
-     * Not Null Only
-     *
-     * <p>
-     */
-    NONNULL
+    ANY_VALUE_WITHIN_ENUMS_ARRAY
   }
 }

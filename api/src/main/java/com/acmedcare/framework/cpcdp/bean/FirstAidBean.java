@@ -41,6 +41,7 @@ import static com.acmedcare.framework.cpcdp.annotation.ComplexCondition.Symbol.O
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @SuppressWarnings("ALL")
 public class FirstAidBean implements Serializable {
 

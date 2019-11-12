@@ -43,6 +43,7 @@ import static com.acmedcare.framework.cpcdp.annotation.Condition.MatchingStrateg
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @SuppressWarnings("ALL")
 public class TreatmentBean extends SerializerBean implements Serializable {
 

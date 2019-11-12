@@ -295,11 +295,9 @@ public final class SerializerFactory {
     Set<String> expectValues = Sets.newHashSet(conditionAnnotation.expectValue());
 
     Class clazz = conditionAnnotation.type();
-    // TODO if result is an array ?
     boolean isCpcEnum = conditionAnnotation.isCpcEnum();
     Class typeClass = conditionAnnotation.type();
     Condition.MatchingStrategy strategy = conditionAnnotation.strategy();
-
 
     String expectFieldName = conditionAnnotation.field();
     Object expectFieldOriginValue = Reflections.getFieldValue(instance,fieldName);
@@ -318,8 +316,24 @@ public final class SerializerFactory {
     if(fieldsMap.containsKey(expectFieldName)){
       if(condition || conditions || complexCondition) {
 
-        if(expectFieldRealValue != null && !expectValues.contains(expectFieldRealValue.toString())) {
-          return false;
+        // Matching Strategy Check
+        switch (strategy) {
+          case ANY_VALUE_WITHIN_ENUMS_ARRAY:
+
+            Object[] anyValueWithinEnumsArraysValues = (Object[]) Reflections.getFieldValue(instance,fieldName);
+            if(anyValueWithinEnumsArraysValues == null || anyValueWithinEnumsArraysValues.length == 0) {
+              return false;
+            }
+
+            break;
+          case DEFAULT:
+          default:
+
+            if(expectFieldRealValue != null && !expectValues.contains(expectFieldRealValue.toString())) {
+              return false;
+            }
+
+            break;
         }
 
         if(condition) {
@@ -395,10 +409,22 @@ public final class SerializerFactory {
     Assert.notNull(expectFieldRealValue,"条件属性: <" + fieldName + "> 值不能为空.");
 
     if(log.isDebugEnabled()) {
-      log.debug("Condition: {} | {}, {}, {}, {}", field.getName(), fieldName, expectValues, isCpcEnum, clazz);
+      log.debug("Condition V: {} | {}, {}, {}, {}, {} ,{}", field.getName(), fieldName, expectValues, isCpcEnum, clazz, typeClass, strategy);
     }
 
-    return expectValues.contains(expectFieldRealValue.toString());
+    //
+    switch (strategy) {
+      case ANY_VALUE_WITHIN_ENUMS_ARRAY:
+
+        Object[] anyValueWithinEnumsArraysValues = (Object[]) Reflections.getFieldValue(instance, fieldName);
+
+        return anyValueWithinEnumsArraysValues != null && anyValueWithinEnumsArraysValues.length > 0;
+
+      case DEFAULT:
+      default:
+
+        return expectValues.contains(expectFieldRealValue.toString());
+    }
   }
 
   public <T> T fromJson(String json, Class<T> classOfT) throws JsonSyntaxException {
