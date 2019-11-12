@@ -288,7 +288,7 @@ public final class SerializerFactory {
    * @param instance object instance
    * @return matched return true , otherwise return false
    */
-  @SuppressWarnings("DuplicatedCode")
+  @SuppressWarnings({"DuplicatedCode", "AlibabaMethodTooLong"})
   private static boolean isConditionMatch(Condition conditionAnnotation, Map<String, Field> fieldsMap, Field field, Object instance) {
 
     String fieldName = conditionAnnotation.field();
